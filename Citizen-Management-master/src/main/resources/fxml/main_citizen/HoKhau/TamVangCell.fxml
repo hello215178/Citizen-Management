@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="50.0" prefWidth="800.0" styleClass="hoKhauCell_container" stylesheets="@../../../styles/Main/hoKhau/hoKhauCell.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox prefHeight="50.0" prefWidth="800.0">
+         <children>
+            <Text fx:id="hovaten_text" strokeType="OUTSIDE" strokeWidth="0.0" text="Họ và tên" wrappingWidth="150.0" />
+            <Text fx:id="magiaytamvang_text" strokeType="OUTSIDE" strokeWidth="0.0" text="mgtv" wrappingWidth="80.0" />
+            <Text fx:id="manhankhau_text" strokeType="OUTSIDE" strokeWidth="0.0" text="Mnk" wrappingWidth="100.0" />
+            <Text fx:id="noitamtru_text" strokeType="OUTSIDE" strokeWidth="0.0" text="nơi tạm trú" wrappingWidth="130.0" />
+            <Text fx:id="tungay_text" strokeType="OUTSIDE" strokeWidth="0.0" text="Từ ngày" wrappingWidth="85.0" />
+            <Text fx:id="denngay_text" strokeType="OUTSIDE" strokeWidth="0.0" text="Đến ngày" wrappingWidth="85.0" />
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

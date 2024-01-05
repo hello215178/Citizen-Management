@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="750.0" prefWidth="850.0" styleClass="container" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.citizenmanagement.controllers.maincontrollers.NhankhauController.DkTamVangController">
+    <Label layoutX="283.0" layoutY="42.0" text="Khai báo tạm vắng">
+      <font>
+         <Font name="Verdana Bold" size="32.0" />
+      </font></Label>
+    <VBox layoutX="199.0" layoutY="120.0" prefHeight="510.0" prefWidth="450.0" styleClass="vbx">
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Mã nhân khẩu(*)">
+         <font>
+            <Font size="14.0" />
+         </font></Text>
+        <TextField fx:id="ma_nhan_khau" prefHeight="32.0" prefWidth="292.0" style="-fx-background-color: #fff;" styleClass="input_text_field" />
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nơi tạm trú(*)">
+         <font>
+            <Font size="14.0" />
+         </font></Text>
+      <TextField fx:id="noi_tam_tru" prefHeight="32.0" style="-fx-background-color: #fff;" styleClass="input_text_field" />
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Lý do ">
+         <font>
+            <Font size="14.0" />
+         </font></Text>
+      <TextArea fx:id="li_do" prefHeight="100.0" style="-fx-background-color: #fff;" styleClass="input_text_field" />
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Thời gian tạm vắng(*)">
+         <font>
+            <Font size="14.0" />
+         </font></Text>
+        <Label text="Ngày bắt đầu tạm vắng  ">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+        <DatePicker fx:id="ngay_bat_dau" prefHeight="32.0" prefWidth="200.0" style="-fx-background-color: #fff;" styleClass="input_text_field" />
+        <Label text="Ngày kết thúc tạm vắng" />
+        <DatePicker fx:id="ngay_ket_thuc" prefHeight="32.0" prefWidth="200.0" style="-fx-background-color: #fff;" styleClass="input_text_field" />
+    </VBox>
+    <Button layoutX="445.0" layoutY="664.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="129.0" style="-fx-background-color: #1a5e03;" styleClass="button_style" stylesheets="@../../../styles/Main/DkTamTru.css" text="Xác nhận " fx:id="xac_nhan_tam_vang" />
+    <Button fx:id="thoat_btn" layoutX="266.0" layoutY="664.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="120.0" style="-fx-background-color: #818a84;" styleClass="button_style" stylesheets="@../../../styles/Main/DkTamTru.css" text="Thoát" />
+   <stylesheets>
+      <URL value="@../../../styles/Main/DkTamTru.css" />
+      <URL value="@../../../styles/Main/NhanKhau.css" />
+      <URL value="@../../../styles/LoginForm.css" />
+   </stylesheets>
+</AnchorPane>

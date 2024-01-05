@@ -1,0 +1,78 @@
+.container {
+       -fx-background-color: linear-gradient(to right bottom,  rgba(255,255,255,1) 0%, rgba(255,246,244,1) 60%, rgba(207,247,255,1) 100%);
+}
+
+.button_search {
+    -fx-text-fill: #FFFFFF;
+    -fx-background-color: #7B68EE;
+    -fx-pref-width: 100;
+    -fx-pref-height: 27;
+    -fx-font-size: 1.1em;
+    -fx-font-family: Serif ;
+    -fx-font-weight: BOLD;
+    -fx-effect: dropshadow( one-pass-box , black , 8 , 0.0 , 2 , 0 );
+}
+
+.button_add {
+    -fx-background-color: Green;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 1.1em;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(three-pass-box , #AAAAAA, 3, 0, 0, 3);
+}
+
+.button_add FontAwesomeIconView {
+    -fx-fill: White;
+}
+
+.button_remove {
+    -fx-background-color: red;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 1.1em;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(three-pass-box , #AAAAAA, 3, 0, 0, 3);
+}
+
+.button_remove FontAwesomeIconView {
+    -fx-fill: White;
+}
+
+.button_tamvang{
+    -fx-background-color: red;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 1.1em;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(three-pass-box , #AAAAAA, 3, 0, 0, 3);
+}
+
+.button_tamvang FontAwesomeIconView {
+    -fx-fill: White;
+}
+
+.button_tamtru {
+    -fx-background-color: Green;
+        -fx-text-fill: #FFFFFF;
+        -fx-font-size: 1.1em;
+        -fx-font-weight: bold;
+        -fx-effect: dropshadow(three-pass-box , #AAAAAA, 3, 0, 0, 3);
+}
+
+.button_tamtru FontAwesomeIconView {
+    -fx-fill: White;
+}
+
+.button_search :hover {
+      -fx-cursor: hand;
+      -fx-text-style: bold;
+      -fx-background-color: #373c7d;
+}
+
+.button_search  :focus {
+  -fx-outline-color: transparent;
+  -fx-outline-style: solid;
+}
+
+.button_search :pressed {
+  -fx-background-color: #3998e6;
+}
+
