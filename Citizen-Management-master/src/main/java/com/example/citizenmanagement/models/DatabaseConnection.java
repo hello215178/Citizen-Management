@@ -8,6 +8,8 @@ import javafx.scene.control.Dialog;
 
 
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -317,19 +319,20 @@ public class DatabaseConnection {
 
 
     //Nhân khẩu
-    public int addNhanKhau (String hoTen, String CCCD, String ngaySinh, int gioiTinh, String noiSinh, String nguyenQuan,String danToc, String tonGiao, String quocTich, String noiThuongTru, String ngheNghiep, String ghiChu ){
+    public int addNhanKhau (String hoTen, String CCCD, String ngaySinh, boolean gioiTinh, String noiSinh, String nguyenQuan,String danToc, String tonGiao, String quocTich, String noiThuongTru, String ngheNghiep, String ghiChu ){
         int thanhcong = 0;
         String querry = "insert into NHANKHAU (HOTEN, SOCANCUOC, NGAYSINH, GIOITINH, NOISINH, NGUYENQUAN, DANTOC, TONGIAO, QUOCTICH, NOITHUONGTRU, NGHENGHIEP, NGAYTAO, GHICHU ) " +
                 " values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try{
             PreparedStatement pre = connection.prepareStatement(querry);
-            pre.setNString(1,hoTen); pre.setString(2,CCCD);
-            pre.setString(3,ngaySinh); pre.setInt(4,gioiTinh);
-            pre.setNString(5,noiSinh); pre.setNString(6,nguyenQuan);
-            pre.setNString(7,danToc); pre.setNString(8,tonGiao);
-            pre.setNString(9,quocTich);
-            pre.setNString(10,noiThuongTru); pre.setNString(11,ngheNghiep);
-            pre.setDate(12, Date.valueOf(LocalDate.now().toString())); pre.setNString(13,ghiChu);
+            pre.setString(1,hoTen); pre.setString(2,CCCD);
+            pre.setDate(3, java.sql.Date.valueOf(ngaySinh));
+            pre.setBoolean(4,gioiTinh);
+            pre.setString(5,noiSinh); pre.setString(6,nguyenQuan);
+            pre.setString(7,danToc); pre.setString(8,tonGiao);
+            pre.setString(9,quocTich);
+            pre.setString(10,noiThuongTru); pre.setString(11,ngheNghiep);
+            pre.setDate(12, Date.valueOf(LocalDate.now().toString())); pre.setString(13,ghiChu);
             thanhcong = pre.executeUpdate();
         }
         catch(SQLException e) {
@@ -339,28 +342,83 @@ public class DatabaseConnection {
         return thanhcong;
     }
 
-    public int addTamtru(String hoTen, String CCCD, String ngaySinh, int gioiTinh, String noiSinh, String nguyenQuan, String danToc, String tonGiao, String quocTich, String noiThuongTru, String ngheNghiep, String sdt, Date ngayDen, Date ngayDi, String liDo ) {
+//    public int addTamtru(String hoTen, String CCCD, String ngaySinh, int gioiTinh, String noiSinh, String nguyenQuan, String danToc, String tonGiao, String quocTich, String noiThuongTru, String ngheNghiep, String sdt, Date ngayDen, Date ngayDi, String liDo ) {
+//        int thanhcong = 0;
+//        String que = "SELECT INSERT_TAMTRU ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+//        try{
+//
+//            PreparedStatement pre = connection.prepareStatement(que);
+//            pre.setString(1,hoTen); pre.setString(2,CCCD);
+//            pre.setString(3, ngaySinh); pre.setInt(4,gioiTinh);
+//            pre.setString(5,noiSinh); pre.setString(6,nguyenQuan);
+//            pre.setString(7,danToc); pre.setString(8,tonGiao);
+//            pre.setString(9,quocTich);
+//            pre.setString(10,noiThuongTru); pre.setString(11,ngheNghiep);
+//            pre.setString(12, sdt);
+//            pre.setDate(13, ngayDen); pre.setDate(14,ngayDi);
+//            pre.setString(15,liDo);
+//            thanhcong = pre.executeUpdate();
+//        }catch(Exception e) {
+//            System.out.println("Lỗi thêm nhân khẩu");
+//            throw new RuntimeException(e);
+//        }
+//
+//        return thanhcong;
+//    }
+
+    public int addTamtru(String hoTen, String CCCD, String ngaySinh, boolean gioiTinh, String noiSinh, String nguyenQuan, String danToc, String tonGiao, String quocTich, String noiThuongTru, String ngheNghiep, String sdt, Date ngayDen, Date ngayDi, String liDo) {
         int thanhcong = 0;
-        String que = "EXEC INSERT_TAMTRU ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?";
-        try{
-            PreparedStatement pre = connection.prepareStatement(que);
-            pre.setNString(1,hoTen); pre.setString(2,CCCD);
-            pre.setString(3, ngaySinh); pre.setInt(4,gioiTinh);
-            pre.setNString(5,noiSinh); pre.setNString(6,nguyenQuan);
-            pre.setNString(7,danToc); pre.setNString(8,tonGiao);
-            pre.setNString(9,quocTich);
-            pre.setNString(10,noiThuongTru); pre.setNString(11,ngheNghiep);
-            pre.setString(12, sdt);
-            pre.setDate(13, ngayDen); pre.setDate(14,ngayDi);
-            pre.setNString(15,liDo);
-            thanhcong = pre.executeUpdate();
-        }catch(Exception e) {
-            System.out.println("Lỗi thêm nhân khẩu");
-            throw new RuntimeException(e);
+        try {
+            // Thêm vào bảng NHANKHAU
+            String queryNhanKhau = "INSERT INTO NHANKHAU (HOTEN, SOCANCUOC, NGAYSINH, GIOITINH, NOISINH, NGUYENQUAN, DANTOC, TONGIAO, QUOCTICH, NOITHUONGTRU, NGHENGHIEP, GHICHU, NGAYTAO) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            PreparedStatement preNhanKhau = connection.prepareStatement(queryNhanKhau, Statement.RETURN_GENERATED_KEYS);
+            preNhanKhau.setString(1, hoTen);
+            preNhanKhau.setString(2, CCCD);
+            preNhanKhau.setDate(3, java.sql.Date.valueOf(ngaySinh));
+            preNhanKhau.setBoolean(4, gioiTinh);
+            preNhanKhau.setString(5, noiSinh);
+            preNhanKhau.setString(6, nguyenQuan);
+            preNhanKhau.setString(7, danToc);
+            preNhanKhau.setString(8, tonGiao);
+            preNhanKhau.setString(9, quocTich);
+            preNhanKhau.setString(10, noiThuongTru);
+            preNhanKhau.setString(11, ngheNghiep);
+            preNhanKhau.setString(12, "tạm trú");
+            LocalDate today = LocalDate.now();
+            Date currentDate = Date.valueOf(today);
+
+            // Truyền ngày hôm nay vào câu lệnh SQL
+            preNhanKhau.setDate(13, currentDate);
+
+            thanhcong = preNhanKhau.executeUpdate();
+
+            // Lấy MANHANKHAU được tạo tự động
+            ResultSet rs = preNhanKhau.getGeneratedKeys();
+            int manhankhau = -1;
+            if (rs.next()) {
+                manhankhau = rs.getInt(1);
+            }
+
+            // Thêm vào bảng TAMTRU
+            if (manhankhau != -1) {
+                String queryTamTru = "INSERT INTO TAMTRU (MANHANKHAU, SODIENTHOAINGUOIDANGKY, TUNGAY, DENNGAY, LYDO) VALUES (?, ?, ?, ?, ?)";
+                PreparedStatement preTamTru = connection.prepareStatement(queryTamTru);
+                preTamTru.setInt(1, manhankhau);
+                preTamTru.setString(2, sdt);
+                preTamTru.setDate(3, ngayDen);
+                preTamTru.setDate(4, ngayDi);
+                preTamTru.setString(5, liDo);
+
+                thanhcong = preTamTru.executeUpdate();
+            }
+        } catch (Exception e) {
+            System.out.println("Lỗi thêm nhân khẩu và tạm trú");
+            e.printStackTrace();
         }
 
         return thanhcong;
     }
+
 
     public int addKhaitu(String maNguoiKhai, String maNguoiMat, Date ngayMat, String liDo) {
         int thanhcong = 0;
@@ -437,31 +495,60 @@ public class DatabaseConnection {
         return resultSet;
 
     }
-    public void dangKiTamVang(int maNhanKhau, String noiTamTru,String tuNgay, String denNgay,String lyDo){
-        String dangkitamvang = "SELECT INSERT_TAM_VANG ?, ?, ?, ?,?";
+
+    public void dangKiTamVang(int maNhanKhau, String noiTamTru, String tuNgay, String denNgay, String lyDo) {
+        String dangkitamvang = "INSERT INTO TAMVANG(MANHANKHAU, NOITAMTRU, TUNGAY, DENNGAY, LYDO) VALUES (?, ?, ?, ?, ?)";
+
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(dangkitamvang);
-            preparedStatement.setInt(1,maNhanKhau);
+            preparedStatement.setInt(1, maNhanKhau);
 
-            preparedStatement.setString(3,tuNgay);
-
-            preparedStatement.setString(4,denNgay);
-
-            preparedStatement.setString(5,lyDo);
-
-            if(noiTamTru.isEmpty())
-                preparedStatement.setString(2,null);
+            if (noiTamTru.isEmpty())
+                preparedStatement.setString(2, null);
             else
-                preparedStatement.setString(2,noiTamTru);
+                preparedStatement.setString(2, noiTamTru);
+
+            // Chuyển đổi từ String sang java.sql.Date
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            java.util.Date parsedTuNgay = dateFormat.parse(tuNgay);
+            java.util.Date parsedDenNgay = dateFormat.parse(denNgay);
+
+            preparedStatement.setDate(3, new Date(parsedTuNgay.getTime()));
+            preparedStatement.setDate(4, new Date(parsedDenNgay.getTime()));
+
+            preparedStatement.setString(5, lyDo);
+
             preparedStatement.executeUpdate();
-        } catch (SQLException e) {
+        } catch (SQLException | ParseException e) {
             throw new RuntimeException(e);
         }
     }
 
+//    public void dangKiTamVang(int maNhanKhau, String noiTamTru,String tuNgay, String denNgay,String lyDo){
+//        String dangkitamvang = "INSERT INTO TAMVANG(MANHANKHAU, NOITAMTRU, TUNGAY, DENNGAY, LYDO) VALUES (?, ?, ?, ?, ?)";
+//        try {
+//            PreparedStatement preparedStatement = connection.prepareStatement(dangkitamvang);
+//            preparedStatement.setInt(1,maNhanKhau);
+//
+//            preparedStatement.setString(3,tuNgay);
+//
+//            preparedStatement.setString(4,denNgay);
+//
+//            preparedStatement.setString(5,lyDo);
+//
+//            if(noiTamTru.isEmpty())
+//                preparedStatement.setString(2,null);
+//            else
+//                preparedStatement.setString(2,noiTamTru);
+//            preparedStatement.executeUpdate();
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
+
     public ResultSet KiemTraMaNhanKhauCoTonTaiHayKhong(int manhankhau){
         ResultSet resultSet = null;
-        String query = "SELECT COUNT(MANHANKHAU) FROM NHANKHAU WHERE MANHANKHAU =" + manhankhau;
+        String query = "SELECT COUNT(MANHANKHAU) FROM NHANKHAU WHERE MANHANKHAU = " + manhankhau;
 
         try {
             Statement statement = connection.createStatement();
@@ -548,23 +635,26 @@ public class DatabaseConnection {
 
     public int addHoKhau(String ma_ch, String diachi, String ghichu){
         if(!ma_ch.isEmpty() && !diachi.isEmpty()) {
-            String query = "SELECT INSERT_HOKHAU ?, ?, ?, ?";
+            String query = "INSERT INTO HOKHAU(IDCHUHO, DIACHI, NGAYTAO, GHICHU) VALUES (?, ?, ?, ?)";
             try {
                 PreparedStatement statement = connection.prepareStatement(query);
 
-                statement.setString(1, ma_ch);
-                statement.setNString(2, diachi);
-                statement.setString(3,LocalDate.now().toString());
+                statement.setInt(1, Integer.parseInt(ma_ch));
+                statement.setString(2, diachi);
+                statement.setDate(3, java.sql.Date.valueOf(LocalDate.now()));
+                //statement.setString(3,LocalDate.now().toString());
                 if(ghichu.isEmpty())
-                    statement.setNString(4,null);
+                    statement.setString(4,null);
                 else
-                    statement.setNString(4, ghichu);
+                    statement.setString(4, ghichu);
+
 
                 statement.executeUpdate();
+                System.out.println(query);
                 return 1;
             } catch (Exception e) {
                 System.out.println("loi o addHoKhau");
-//                throw new RuntimeException(e);
+                e.printStackTrace();
                 return 0;
             }
         }
@@ -578,12 +668,12 @@ public class DatabaseConnection {
     public ResultSet timKiem(String dieukien){
         ResultSet resultSet=null;
         String query = "SELECT * FROM HOKHAU\n" +
-                "WHERE MAHOKHAU LIKE ? OR TENCHUHO LIKE ? OR DIACHI LIKE ?";
+                "WHERE CAST(MAHOKHAU AS TEXT) LIKE ? OR UPPER(TENCHUHO) LIKE ? OR UPPER(DIACHI) LIKE ?";
         try{
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, "%" + dieukien + "%");
-            statement.setNString(2, "%" + dieukien + "%");
-            statement.setNString(3, "%" + dieukien + "%");
+            statement.setString(2, "%" + dieukien.toUpperCase() + "%");
+            statement.setString(3, "%" + dieukien.toUpperCase() + "%");
             resultSet = statement.executeQuery();
         }catch (Exception e){
             throw new RuntimeException(e);
@@ -602,23 +692,23 @@ public class DatabaseConnection {
     public int capNhatHoKhau(String idHoKhau, String maChuHo, String diaChi, String ghiChu){
 
         try {
-            String capnhat = "update HOKHAU set IDCHUHO=?, DIACHI=?, GHICHU=?, tenchuho=? where MAHOKHAU=?";
+            String capnhat = "update HOKHAU set IDCHUHO=?, DIACHI=?, GHICHU=?, tenchuho=? where CAST(MAHOKHAU AS TEXT) = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(capnhat);
-            preparedStatement.setString(1,maChuHo);
-            preparedStatement.setNString(2,diaChi);
+            preparedStatement.setInt(1,Integer.parseInt(maChuHo));
+            preparedStatement.setString(2,diaChi);
             if(ghiChu.isEmpty())
-                preparedStatement.setNString(3,null);
+                preparedStatement.setString(3,null);
             else
-                preparedStatement.setNString(3, ghiChu);
+                preparedStatement.setString(3, ghiChu);
             preparedStatement.setString(5,idHoKhau);
 
 
-            String lay_ten_chu="select * from nhankhau where manhankhau="+maChuHo;
+            String lay_ten_chu="select * from nhankhau where cast(manhankhau as text)= '"+maChuHo +"'";
             Statement statement = connection.createStatement();
             ResultSet resultSet1 = statement.executeQuery(lay_ten_chu);
             if(resultSet1.isBeforeFirst()){
                 resultSet1.next();
-                preparedStatement.setString(4,resultSet1.getNString(2));
+                preparedStatement.setString(4,resultSet1.getString(2));
             }
             else {
                 preparedStatement.setString(4,null);
@@ -626,6 +716,7 @@ public class DatabaseConnection {
             preparedStatement.executeUpdate();
             return 1;
         } catch (SQLException e) {
+            e.printStackTrace();
             return 0;
         }
     }
@@ -656,7 +747,7 @@ public class DatabaseConnection {
     }
 
     public ResultSet lay_cac_thanh_vien(String ma_ho){
-        String query = "select * from THANHVIENCUAHO where CAST(MAHOKHAU AS TEXT) = "+ma_ho;
+        String query = "select * from THANHVIENCUAHO where MAHOKHAU = "+ma_ho;
         ResultSet resultSet=null;
         try{
             Statement statement = connection.createStatement();
@@ -669,7 +760,7 @@ public class DatabaseConnection {
     }
 
     public ResultSet lay_nhan_khau(String ma_nhan_khau) {
-        String query = " select SOCANCUOC, HOTEN, GIOITINH, NGAYSINH, NOITHUONGTRU from NHANKHAU where CAST(MANHANKHAU AS TEXT) = " + ma_nhan_khau;
+        String query = " select SOCANCUOC, HOTEN, GIOITINH, NGAYSINH, NOITHUONGTRU from NHANKHAU where MANHANKHAU = " + ma_nhan_khau;
         return executeQuery(query);
     }
 
@@ -677,9 +768,9 @@ public class DatabaseConnection {
         String query = "INSERT INTO THANHVIENCUAHO VALUES (?,?,?)";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1,maNhanKhau);
-            preparedStatement.setString(2,ma_ho);
-            preparedStatement.setNString(3,quan_he);
+            preparedStatement.setInt(1,Integer.parseInt(maNhanKhau));
+            preparedStatement.setInt(2,Integer.parseInt(ma_ho));
+            preparedStatement.setString(3,quan_he);
             preparedStatement.executeUpdate();
 
         } catch (Exception e){
@@ -687,13 +778,13 @@ public class DatabaseConnection {
         }
     }
     public void xoa_thanh_vien_cua_ho(String maNhanKhau){
-        String query1 = "select * FROM NHANKHAU WHERE CAST(MANHANKHAU AS TEXT) = " + maNhanKhau;
+        String query1 = "select * FROM NHANKHAU WHERE CAST(MANHANKHAU AS TEXT) = '" + maNhanKhau + "'";
         try{
             Statement statement1 = connection.createStatement();
             ResultSet resultSet=statement1.executeQuery(query1);
             if(resultSet.isBeforeFirst()) {
                 resultSet.next();
-                String query = "DELETE FROM THANHVIENCUAHO WHERE CAST(MANHANKHAU AS TEXT) = "+resultSet.getString(1);
+                String query = "DELETE FROM THANHVIENCUAHO WHERE CAST(MANHANKHAU AS TEXT) = '"+resultSet.getString(1) + "'";
                 Statement statement = connection.createStatement();
                 statement.executeUpdate(query);
             }
@@ -703,7 +794,7 @@ public class DatabaseConnection {
         }
     }
     public void xoaThanhVienCuaHo(String maNhanKhau) {
-        String query = "DELETE FROM THANHVIENCUAHO WHERE CAST(MANHANKHAU AS TEXT) = " + maNhanKhau;
+        String query = "DELETE FROM THANHVIENCUAHO WHERE CAST(MANHANKHAU AS TEXT) = '" + maNhanKhau + "'";
         System.out.println("da xoa " + maNhanKhau);
         executeUpdate(query);
     }
@@ -739,7 +830,7 @@ public class DatabaseConnection {
     }
 
    public String lay_chu_ho(String ma_ho_khau){
-        String query = "select * from HOKHAU WHERE CAST(MAHOKHAU AS TEXT)="+ma_ho_khau;
+        String query = "select * from HOKHAU WHERE MAHOKHAU="+ma_ho_khau;
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet=statement.executeQuery(query);
@@ -749,7 +840,7 @@ public class DatabaseConnection {
                     return resultSet.getString(2);
                 }
         }catch (Exception e){
-            System.out.println("loi o lay_ho_khau");
+            e.printStackTrace();
             return null;
         }
         return null;
@@ -988,7 +1079,7 @@ public class DatabaseConnection {
     public ResultSet deadNhanKhau_timkiem(String condition) {
         String query = "select MANHANKHAU, SOCANCUOC, HOTEN, GIOITINH, NGAYSINH, NOITHUONGTRU\n" +
                 "from NHANKHAU INNER JOIN KHAITU ON NHANKHAU.MANHANKHAU = KHAITU.MANHANKHAUNGUOICHET\n" +
-                "WHERE MANHANKHAU LIKE '%" + condition + "%' OR SOCANCUOC LIKE '%" + condition + "%' OR HOTEN LIKE '%" + condition + "%'";
+                "WHERE CAST(MANHANKHAU AS TEXT) LIKE '%" + condition + "%' OR SOCANCUOC LIKE '%" + condition + "%' OR UPPER(HOTEN) LIKE '%" + condition.toUpperCase() + "%'";
 
         return executeQuery(query);
     }
@@ -1031,11 +1122,20 @@ public class DatabaseConnection {
         }
     }
 
+//    public int xoaNhanKhau(String soNhanKhau) {
+//        String query = "DELETE FROM NHANKHAU WHERE CAST(MANHANKHAU AS TEXT) = ?";
+//        try (PreparedStatement statement = connection.prepareStatement(query)) {
+//            statement.setString(1, soNhanKhau);
+//
+//            return statement.executeUpdate();
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
+
     //chưa sửa
     public int xoaNhanKhau(String soNhanKhau) {
-        String query = "DECLARE @OUTPUT INT\n" +
-                "EXEC DELETE_NHANKHAU " + soNhanKhau + ", @OUTPUT OUTPUT\n" +
-                "SELECT @OUTPUT";
+        String query = "SELECT DELETE_NHANKHAU(" + Integer.parseInt(soNhanKhau) +")";
         Statement statement;
         ResultSet resultSet = null;
         try {

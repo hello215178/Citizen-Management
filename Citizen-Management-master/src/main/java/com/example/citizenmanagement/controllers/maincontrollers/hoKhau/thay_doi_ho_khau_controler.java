@@ -280,11 +280,11 @@ public class thay_doi_ho_khau_controler implements Initializable {
                         if(resultSet1.isBeforeFirst()){
                             resultSet1.next();
                             String cccd = resultSet1.getString(1);
-                            String hoTen = resultSet1.getNString(2);
-                            String quanHe = resultSet.getNString(3);
+                            String hoTen = resultSet1.getString(2);
+                            String quanHe = resultSet.getString(3);
                             String ngaySinh = resultSet1.getString(4);
-                            int gioiTinh = resultSet1.getInt(3);
-                            if(gioiTinh==1)
+                            boolean gioiTinh = resultSet1.getBoolean(3);
+                            if(gioiTinh==true)
                                 gioi_tinh="Nam";
                             else
                                 gioi_tinh="Nu";
@@ -316,10 +316,10 @@ public class thay_doi_ho_khau_controler implements Initializable {
                     boolean chuaChet = Model.getInstance().getDatabaseConnection().checkKhaiTu(maNhanKhau);
                     if (!chuaChet) continue;
                     String soCanCuoc = resultSet.getString(2);
-                    String hoTen = resultSet.getNString(3);
+                    String hoTen = resultSet.getString(3);
                     String gioiTinh = resultSet.getString(4);
                     String ngaySinh = resultSet.getString(5);
-                    String thuongTru = resultSet.getNString(6);
+                    String thuongTru = resultSet.getString(6);
                     listView_nhan_khau.getItems().add(new List_nhan_khau(maNhanKhau, soCanCuoc, hoTen, gioiTinh, ngaySinh, thuongTru));
                 }
             }
@@ -354,8 +354,8 @@ public class thay_doi_ho_khau_controler implements Initializable {
                             String hoTen = resultSet1.getString(2);
                             String quanHe = resultSet.getString(3);
                             String ngaySinh = resultSet1.getString(4);
-                            int gioiTinh = resultSet1.getInt(3);
-                            if(gioiTinh==1)
+                            boolean gioiTinh = resultSet1.getBoolean(3);
+                            if(gioiTinh==true)
                                 gioi_tinh="Nam";
                             else
                                 gioi_tinh="Nu";

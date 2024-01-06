@@ -71,10 +71,10 @@ public class ThemThanhVienHoKhauController implements Initializable {
                             if(!resultSet.getString(1).equals(chuHo.getSo_nhan_khau()) && chuaChet) {
                                 String ma_nhan_khau = resultSet.getString(1);
                                 String cccd = resultSet.getString(2);
-                                String hoten = resultSet.getNString(3);
+                                String hoten = resultSet.getString(3);
                                 String gioitinh = resultSet.getString(4);
                                 String namsinh = resultSet.getString(5);
-                                String thuongtru = resultSet.getNString(6);
+                                String thuongtru = resultSet.getString(6);
 
                                 List_nhan_khau item = new List_nhan_khau(ma_nhan_khau, cccd, hoten, gioitinh, namsinh, thuongtru);
                                 if(forSelect.contains(item)) listView_to_chon.getItems().add(item);
@@ -129,14 +129,14 @@ public class ThemThanhVienHoKhauController implements Initializable {
                     resultSet.next();
                     String maNhanKhau = thanh_vien_duoc_chon.getmaNhanKhau();
                     String cccd = resultSet.getString(1);
-                    String hoTen = resultSet.getNString(2);
+                    String hoTen = resultSet.getString(2);
                     String gioiTinh;
-                    if(resultSet.getInt(3) == 1) {
+                    if(resultSet.getBoolean(3) == true) {
                         gioiTinh = "Nam";
                     }
                     else gioiTinh = "Nữ";
                     String ngaySinh = resultSet.getString(4);
-                    String noiThuongTru = resultSet.getNString(5);
+                    String noiThuongTru = resultSet.getString(5);
                     List_nhan_khau item = new List_nhan_khau(
                             maNhanKhau, cccd, hoTen, gioiTinh, ngaySinh, noiThuongTru
                     );
@@ -147,6 +147,7 @@ public class ThemThanhVienHoKhauController implements Initializable {
 
 
                 } catch (SQLException e) {
+                    e.printStackTrace();
                     throw new RuntimeException(e);
                 }
             }
@@ -180,6 +181,7 @@ public class ThemThanhVienHoKhauController implements Initializable {
                     resultSet.next();
                     maHoKhau = resultSet.getString(1);
                 } catch (SQLException e) {
+                    e.printStackTrace();
                     throw new RuntimeException(e);
                 }
                 for(thanh_vien_cua_ho_cell item : listView_to_them.getItems()) {
@@ -208,10 +210,10 @@ public class ThemThanhVienHoKhauController implements Initializable {
                     if(!chuHo.getSo_nhan_khau().equals(resultSet.getString(1)) && chuaChet) {
                         String ma_nhan_khau = resultSet.getString(1);
                         String cccd = resultSet.getString(2);
-                        String hoten = resultSet.getNString(3);
+                        String hoten = resultSet.getString(3);
                         String gioitinh = resultSet.getString(4);
                         String namsinh = resultSet.getString(5);
-                        String thuongtru = resultSet.getNString(6);
+                        String thuongtru = resultSet.getString(6);
 
                         List_nhan_khau item = new List_nhan_khau(ma_nhan_khau, cccd, hoten, gioitinh, namsinh, thuongtru);
                         listView_to_chon.getItems().add(item);
@@ -220,6 +222,7 @@ public class ThemThanhVienHoKhauController implements Initializable {
                 }
             }
         } catch (SQLException e) {
+            e.printStackTrace();
             throw new RuntimeException(e);
         }
     }

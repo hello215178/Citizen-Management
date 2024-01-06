@@ -42,10 +42,10 @@ public class ListDeadController implements Initializable {
                         while(resultSet.next()) {
                             String ma = resultSet.getString(1);
                             String id = resultSet.getString(2);
-                            String hoten = resultSet.getNString(3);
+                            String hoten = resultSet.getString(3);
                             String gioitinh = resultSet.getString(4);
                             String namsinh = resultSet.getString(5);
-                            String diachi = resultSet.getNString(6);
+                            String diachi = resultSet.getString(6);
 
                             listView.getItems().add(new List_nhan_khau(ma, id, hoten, gioitinh, namsinh, diachi));
                         }

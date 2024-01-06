@@ -23,7 +23,7 @@ public class DKTamTru2Controller implements Initializable {
     public DatePicker ngaydi_text;
     @FXML
     public TextArea lido_text;
-    int bit;
+    boolean bit;
     private static luuTruNhanKhau luuTruNhanKhau;
     private void onThoattamtru2() {
         Model.getInstance().getViewFactory().getSelectedMenuItem().set(MainMenuOptions.TAM_TRU_LIST);
@@ -39,9 +39,9 @@ public class DKTamTru2Controller implements Initializable {
             onThoattamtru2();
         });
         confirm_btn.setOnAction(actionEvent -> {
-            if (luuTruNhanKhau.getGioi_tinh() == "Nam") {
-                bit = 1;
-            } else bit = 0;
+            if (luuTruNhanKhau.getGioi_tinh().equals("Nam")) {
+                bit = true;
+            } else bit = false;
 
 //                LocalDate ngay_sinh = luuTruNhanKhau.getNam_sinh();
 //                Date ngaysinh = Date.valueOf(ngay_sinh);

@@ -99,7 +99,7 @@ public class TamTruShowController implements Initializable {
 
         });
         confirm_chinh_sua_btn.setOnAction(event -> {
-            if(my_choise_box.getValue() == "Nam") {
+            if("Nam".equals(my_choise_box.getValue())) {
                 bit = true;
             }
             else {

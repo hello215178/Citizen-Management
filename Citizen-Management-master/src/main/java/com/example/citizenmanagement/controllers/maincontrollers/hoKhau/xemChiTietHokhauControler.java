@@ -54,7 +54,7 @@ public class xemChiTietHokhauControler implements Initializable {
         xoa_btn.setOnAction(event -> {
             alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirmation Alert");
-            alert.setHeaderText("Ông chắc chưa?");
+            alert.setHeaderText("Bạn chắc chắn chưa?");
             Optional<ButtonType> result = alert.showAndWait();
             if(result.get() == ButtonType.OK) {
                 ObservableList<thanh_vien_cua_ho_cell> danh_sach = listView_thanhvien.getItems();
@@ -109,8 +109,8 @@ public class xemChiTietHokhauControler implements Initializable {
                         String hoTen = resultSet1.getString(2);
                         String quanHe = resultSet.getString(3);
                         String ngaySinh = resultSet1.getString(4);
-                        int gioiTinh = resultSet1.getInt(3);
-                        if(gioiTinh==1)
+                        boolean gioiTinh = resultSet1.getBoolean(3);
+                        if(gioiTinh==true)
                             gioi_tinh="Nam";
                         else
                             gioi_tinh="Nu";

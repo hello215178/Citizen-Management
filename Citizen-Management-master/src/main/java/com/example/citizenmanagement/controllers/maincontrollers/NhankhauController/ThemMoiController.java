@@ -63,11 +63,11 @@ public class ThemMoiController implements Initializable {
 
 
         confirm_btn.setOnAction(actionEvent -> {
-            int bit;
+            boolean bit;
             if(my_choise_box.getValue() == "Nam") {
-                bit = 1;
+                bit = true;
             }
-            else bit = 0;
+            else bit = false;
             if(ho_ten_text.getText().isEmpty() || ngay_sinh_lbl.getValue() == null || my_choise_box.getValue().isEmpty() || ton_giao_text.getText().isEmpty() || dan_toc_text.getText().isEmpty() || quoc_tich_text.getText().isEmpty() || nguyen_quan_text.getText().isEmpty() || noi_sinh_text.getText().isEmpty()){
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Lỗi");

@@ -88,12 +88,12 @@ public class ThemChuHoKhauController implements Initializable {
                     boolean chuaChet = Model.getInstance().getDatabaseConnection().checkKhaiTu(ma_nhan_khau);
                     if(!chuaChet) continue;
                     String id = resultSet.getString(2);
-                    String hoten = resultSet.getNString(3);
+                    String hoten = resultSet.getString(3);
                     String gioitinh = resultSet.getString(4);
                     String namsinh = resultSet.getString(5);
                     String thuongtru;
-                    if(resultSet.getNString(6)==null) thuongtru="không có";
-                    else thuongtru = resultSet.getNString(6);
+                    if(resultSet.getString(6)==null) thuongtru="không có";
+                    else thuongtru = resultSet.getString(6);
                     listView.getItems().add(new List_nhan_khau(ma_nhan_khau,id, hoten, gioitinh, namsinh, thuongtru));
                 }
             }

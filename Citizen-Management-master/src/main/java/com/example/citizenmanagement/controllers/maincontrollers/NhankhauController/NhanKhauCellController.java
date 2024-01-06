@@ -27,7 +27,7 @@ public class NhanKhauCellController implements Initializable {
          So_nhan_khau_lbl.setText(String.valueOf(list_nhan_khau.getSo_nhan_khau()));
          cccd_lbl.setText(String.valueOf(list_nhan_khau.getCccd()));
          ten_lbl.setText(String.valueOf(list_nhan_khau.getHoten()));
-        if(  list_nhan_khau.getGioi_tinh().equals(true) ) {
+        if(list_nhan_khau.getGioi_tinh().equals("t") ) {
             gioi_tinh_lbl.setText("Nam");
         }
         else {

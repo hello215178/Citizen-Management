@@ -45,7 +45,7 @@ public class NhanKhauShowController implements Initializable {
     private Alert alert;
 
     private List_nhan_khau list ;
-boolean bit;
+    boolean bit;
     private String[] Gioitinh = {"Nam", "Nữ"};
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -97,7 +97,7 @@ boolean bit;
         reset();
     });
       confirm_chinh_sua_btn.setOnAction(event -> {
-          if(my_choise_box.getValue() == "Nam") {
+          if(my_choise_box.getValue().equals("Nam")) {
               bit = true;
           }
           else bit = false;
@@ -169,9 +169,9 @@ boolean bit;
                 cccd_text.setText(resultSet.getString(2));
                 cccd_text.setDisable(true);
                 String gender = resultSet.getString(4);
-                if (gender.equals("1")) {
+                if (gender.equals("t")) {
                     my_choise_box.setValue("Nam");
-                } else if (gender.equals("0")) {
+                } else if (gender.equals("f")) {
                     my_choise_box.setValue("Nữ");
                 }
                 Date ngay_sinh = resultSet.getDate(3);
@@ -200,6 +200,32 @@ boolean bit;
     }
 
     @FXML
+//    private void onXoaBtn() {
+//        alert = new Alert(Alert.AlertType.CONFIRMATION);
+//        alert.setTitle("Confirmation");
+//        alert.setHeaderText(null);
+//        alert.setContentText("Bạn chắc chắn muốn xóa?");
+//        Optional<ButtonType> result = alert.showAndWait();
+//        if (result.isPresent() && result.get() == ButtonType.OK) {
+//            int thanhCong = Model.getInstance().getDatabaseConnection().xoaNhanKhau(
+//                    String.valueOf(Model.getNhanKhauDuocChon().getSo_nhan_khau())
+//            );
+//            if (thanhCong == 1) {
+//                alert = new Alert(Alert.AlertType.INFORMATION);
+//                alert.setTitle("Information");
+//                alert.setHeaderText(null);
+//                alert.setContentText("Bạn đã xóa thành công!");
+//                alert.showAndWait();
+//                Model.getInstance().getViewFactory().getSelectedMenuItem().set(MainMenuOptions.NHAN_KHAU);
+//            } else if (thanhCong == 0) {
+//                alert = new Alert(Alert.AlertType.INFORMATION);
+//                alert.setTitle("Information");
+//                alert.setHeaderText(null);
+//                alert.setContentText("Không thể xóa vì người này là một chủ hộ.");
+//                alert.showAndWait();
+//            }
+//        }
+//    }
     private void onXoaBtn() {
         alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation");
@@ -225,5 +251,7 @@ boolean bit;
             }
         }
     }
+
+
 
 }

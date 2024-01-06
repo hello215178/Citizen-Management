@@ -92,17 +92,17 @@ public class DkTamTruController implements Initializable {
     private void onThoattamtru() {
         Model.getInstance().getViewFactory().getSelectedMenuItem().set(MainMenuOptions.NHAN_KHAU);
     }
-    int bit;
+    boolean bit;
     private void onTieptucTamtru() {
         Model.getInstance().getViewFactory().getSelectedMenuItem().set(MainMenuOptions.TAM_TRU_2);
 
-        if(gioitinh_text.getValue() == "Nam") {
-            bit = 1;
+        if("Nam".equals(gioitinh_text.getValue())) {
+            bit = true;
         }
-        else bit = 0;
+        else bit = false;
     }
 
-        public int bits() {
+        public boolean bits() {
         return bit;
         }
 

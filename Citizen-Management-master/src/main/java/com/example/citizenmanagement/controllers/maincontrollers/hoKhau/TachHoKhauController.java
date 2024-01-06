@@ -77,7 +77,7 @@ public class TachHoKhauController implements Initializable {
                     }
                     else {
                         Alert alert = new Alert(Alert.AlertType.WARNING);
-                        alert.setContentText("Người em chọn chết rồi, chọn thằng khác đi.");
+                        alert.setContentText("Người bạn chọn đã qua đời, chọn người khác.");
                         alert.setTitle("Cảnh báo");
                         alert.setHeaderText(null);
                         alert.showAndWait();
@@ -194,6 +194,8 @@ public class TachHoKhauController implements Initializable {
         new_list.setCellFactory(param -> new thanh_vien_cua_ho_cell_factory());
     }
 
+
+
     private boolean kiem_tra_chu_ho_moi() {
         for (thanh_vien_cua_ho_cell item: new_list.getItems()) {
             if (item.getmaNhanKhau().equals(id_chu_moi.getText()))
@@ -217,8 +219,8 @@ public class TachHoKhauController implements Initializable {
                             String quanHe = resultSet.getString(3);
                             String ngaySinh = resultSet1.getString(4);
                             String gioi_tinh;
-                            int gioiTinh = resultSet1.getInt(3);
-                            if (gioiTinh == 1)
+                            boolean gioiTinh = resultSet1.getBoolean(3);
+                            if (gioiTinh == true)
                                 gioi_tinh = "Nam";
                             else
                                 gioi_tinh = "Nữ";
