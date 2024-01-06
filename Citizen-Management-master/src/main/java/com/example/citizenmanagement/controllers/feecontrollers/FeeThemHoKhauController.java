@@ -61,7 +61,8 @@ public class FeeThemHoKhauController implements Initializable {
 
             //add loại phí
             String tenKhoanThu = Model.getInstance().getFeeKhoanThuModel().getTenKhoanThu().getValue();
-            boolean batBuoc = Model.getInstance().getFeeKhoanThuModel().getBatBuoc().getValue().equals(1);
+//            boolean batBuoc = Model.getInstance().getFeeKhoanThuModel().getBatBuoc().getValue().equals(1);
+            boolean batBuoc = Model.getInstance().getFeeKhoanThuModel().getBatBuoc().getValue();
             //boolean batBuoc = Model.getInstance().getFeeKhoanThuModel().getBatBuoc().getValue();
             long soTienCanDong = Model.getInstance().getFeeKhoanThuModel().getSoTienTrenMotNguoi().getValue();
             LocalDate now = LocalDate.now();
@@ -76,7 +77,7 @@ public class FeeThemHoKhauController implements Initializable {
 
                 if (item.getSelected())
                     Model.getInstance().getDatabaseConnection().themDanhSachThuPhi(
-                            item.getMaHoKhau(), maKhoanThu, 0);
+                            item.getMaHoKhau(), maKhoanThu, false);
             }
 
             toanBoDanhSach.clear();
@@ -101,8 +102,8 @@ public class FeeThemHoKhauController implements Initializable {
             if (resultSet.isBeforeFirst()) {
                 while (resultSet.next()) {
                     int maHoKhau = resultSet.getInt(1);
-                    String tenChuHo = resultSet.getNString(2);
-                    String diaChi = resultSet.getNString(3);
+                    String tenChuHo = resultSet.getString(2);
+                    String diaChi = resultSet.getString(3);
                     int soThanhVien = resultSet.getInt(4);
                     long soTienCanDong = Model.getInstance().getFeeKhoanThuModel().getSoTienTrenMotNguoi().get() * soThanhVien;
                     toanBoDanhSach.add(new FeeHoKhauCell(false, maHoKhau, tenChuHo, diaChi, soThanhVien, soTienCanDong));

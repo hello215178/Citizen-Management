@@ -49,7 +49,7 @@ public class ListTamTruController implements Initializable {
                 while (resultSet.next()) {
                     String ma = resultSet.getString(1);
                     String id = resultSet.getString(2);
-                    String hoten = resultSet.getNString(3);
+                    String hoten = resultSet.getString(3);
                     String gioitinh = resultSet.getString(4);
                     Date ngay_sinh = resultSet.getDate(5);
                     String ngaysinh = "";
@@ -60,14 +60,14 @@ public class ListTamTruController implements Initializable {
                         ngaysinh = localDate.format(formatter);
                     }
 
-                    String noisinh = resultSet.getNString(6);
+                    String noisinh = resultSet.getString(6);
 
                     list_tam_tru.getItems().add(new List_nhan_khau(ma, id, hoten, gioitinh, ngaysinh, noisinh));
                 }
             }
         }
         catch(Exception e) {
-            System.out.println("Lỗi ở NhanKhaumenucontroller");
+            e.printStackTrace();
         }
         list_tam_tru.setCellFactory(param-> new List_nhan_khau_factory());
     }

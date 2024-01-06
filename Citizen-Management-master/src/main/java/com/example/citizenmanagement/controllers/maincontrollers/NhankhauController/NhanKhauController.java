@@ -108,7 +108,6 @@ public class NhanKhauController implements Initializable {
         }
         catch(Exception e) {
             e.printStackTrace();
-            //System.out.println("Lỗi ở NhanKhaumenucontroller");
         }
         list_view.setCellFactory(param-> new List_nhan_khau_factory());
     }

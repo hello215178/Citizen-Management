@@ -118,22 +118,22 @@ public class ThongTinKhaiTuController implements Initializable{
                 resultSet.next();
                 maGiayKhaiTu_text.setText(resultSet.getString(1));
                 soNK_nguoi_khai.setText(resultSet.getString(2));
-                ho_ten_nguoi_khai.setText(resultSet.getNString(3));
+                ho_ten_nguoi_khai.setText(resultSet.getString(3));
                 soNK_nguoi_mat.setText(resultSet.getString(4));
-                ho_ten_nguoi_mat.setText(resultSet.getNString(5));
+                ho_ten_nguoi_mat.setText(resultSet.getString(5));
                 so_can_cuoc_text.setText(resultSet.getString(6));
                 ngay_sinh.setValue(resultSet.getDate(7).toLocalDate());
-                if(resultSet.getInt(8) == 1) gioi_tinh_text.setText("Nam");
+                if(resultSet.getBoolean(8) == true) gioi_tinh_text.setText("Nam");
                 else gioi_tinh_text.setText("Nữ");
-                dan_toc_text.setText(resultSet.getNString(9));
-                quoc_tich_text.setText(resultSet.getNString(10));
-                nguyen_quan_text.setText(resultSet.getNString(11));
-                thuong_tru_text.setText(resultSet.getNString(12));
+                dan_toc_text.setText(resultSet.getString(9));
+                quoc_tich_text.setText(resultSet.getString(10));
+                nguyen_quan_text.setText(resultSet.getString(11));
+                thuong_tru_text.setText(resultSet.getString(12));
                 if (resultSet.getDate(13) != null)
                     ngay_khai.setValue(resultSet.getDate(13).toLocalDate());
                 if(resultSet.getDate(14) != null)
                     ngay_chet.setValue(resultSet.getDate(14).toLocalDate());
-                ly_do.setText(resultSet.getNString(15));
+                ly_do.setText(resultSet.getString(15));
                 ly_do.setWrapText(true);
 
                 soNK_nguoi_khai.setDisable(true); ho_ten_nguoi_khai.setDisable(true);

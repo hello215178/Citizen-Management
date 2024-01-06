@@ -80,10 +80,10 @@ public class ListDeadController implements Initializable {
                 while (resultSet.next()) {
                     String maNhanKhau = resultSet.getString(1);
                     String soCanCuoc = resultSet.getString(2);
-                    String hoTen = resultSet.getNString(3);
+                    String hoTen = resultSet.getString(3);
                     String gioiTinh = resultSet.getString(4);
                     String ngaySinh = resultSet.getString(5);
-                    String diaChi = resultSet.getNString(6);
+                    String diaChi = resultSet.getString(6);
 
                     listView.getItems().add(new List_nhan_khau(maNhanKhau, soCanCuoc, hoTen, gioiTinh, ngaySinh, diaChi));
                 }

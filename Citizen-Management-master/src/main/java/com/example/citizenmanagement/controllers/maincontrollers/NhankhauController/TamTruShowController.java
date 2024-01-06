@@ -73,7 +73,7 @@ public class TamTruShowController implements Initializable {
                 Model.getInstance().getViewFactory().getSelectedMenuItem().set(MainMenuOptions.TAM_TRU_LIST);
             }
             else {
-                System.out.println("loi kljksadfjlkjg");
+                System.out.println("lỗi ở TamTruShowController");
             }
         });
 
@@ -134,9 +134,9 @@ public class TamTruShowController implements Initializable {
                 ho_ten_text.setText(value);
                 cccd_text.setText(resultSet.getString(2));
                 String gender = resultSet.getString(4);
-                if (gender.equals("1")) {
+                if (gender.equals(true)) {
                     my_choise_box.setValue("Nam");
-                } else if (gender.equals("0")) {
+                } else if (gender.equals(false)) {
                     my_choise_box.setValue("Nữ");
                 }
                 Date ngay_sinh = resultSet.getDate(3);
